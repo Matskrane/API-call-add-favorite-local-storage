@@ -1,8 +1,10 @@
 const list_Products = document.querySelector('.products');
 const API_URL = 'https://dummyjson.com/products?limit=6';
+
+// Gets the users favorites array from local storage and if it doesnt creates an empty array instead.
 const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-
+// Fetch products from the API
 async function getProducts() {
   try {
     const response = await fetch(API_URL);
@@ -14,8 +16,10 @@ async function getProducts() {
   }
 }
 
+// Create HTML elements for each product and add them to the DOM
 function createProducts(products) {
   const list_Products = document.querySelector('.products');
+  
   products.forEach(function (product) {
     const isFavorite = favorites.some((favProduct) => favProduct.title === product.title);
     const buttonClass = isFavorite ? "favorite-button added" : "favorite-button";
@@ -39,6 +43,7 @@ function createProducts(products) {
     `;
   });
 
+  // adds event listener to each button
   const addToFavoriteButton = document.querySelectorAll(".favorite-button");
 
   addToFavoriteButton.forEach((button) => {
@@ -47,6 +52,7 @@ function createProducts(products) {
   
 }
 
+// Add or remove a product from the favorites list stored in local storage
 function addToLocalStorage() {
   const image_url = this.dataset.image_url;
   const title = this.dataset.title;
@@ -77,4 +83,6 @@ getProducts();
 
 
 
-
+// Since i didn't finish everytask the next step would be: 
+// 1: Create a function which removes the "add to favorites button" or do it using ccs if possible
+// 2: Make it so when u tab trough the products with ARIA u can select the button without using the mouse
